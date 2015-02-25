@@ -64,11 +64,7 @@ var ani_data = [0, -120, -240, -360];
 var frame_index = 0;
 var scrollTimer = null;
 
-window.onload = function()
-{
-	hideall();
-	setupStart();
-}
+
 
 var hideall = function(){
 	$introbck.hide();
@@ -122,16 +118,26 @@ $(window).on('beforeunload', function () {
 }
 	(jQuery));
 
-window.onscroll = scroll;
+	
+/* $(document).ready(function(){
+    $(document).scroll(scroll);
+}); */
+	
+	
+$(window).scroll(scroll);
+
+var element = document.querySelector('#dipt');
+var sprite = new Motio(element, {
+    fps: 8,
+    frames: 4
+});
 
 //handler fnc for scroll event
 function scroll() {
-
-	if (scrollTimer) {
-		clearTimeout(scrollTimer); // clear any previous pending timer
-	}
-	scrollTimer = setTimeout(animateWalk, 18);
-
+	
+	sprite.play(); 
+	setTimeout(stopWalk,500);
+	
 	//moving character here
 	$ken.css({
 		marginLeft : progress * 5400 + 'px'
@@ -145,22 +151,8 @@ function scroll() {
 	});
 }
 
-function animateWalk() {
-
-	scrollTimer = null;
-
-	if(IsForwardMoving){
-		$ken.css('background-position', ani_data[frame_index] + 'px 0px');
-	}
-	else{
-		$ken.css('background-position', ani_data[frame_index] + 'px -160px');
-	}
-	
-
-	frame_index++;
-	if (frame_index >= ani_data.length) {
-		frame_index = 0;
-	}
+var stopWalk = function(){
+	sprite.pause();
 }
 
 var update = function(percent, callback) {
@@ -267,7 +259,7 @@ var updateforwards = function(percent, callback) {
 		}
 	}
 	
-	console.log(percent);
+	//console.log(percent);
 	callback(null);
 }
 
@@ -510,6 +502,7 @@ var dropContactribbon = function(){
 }
 
 var graduate = function(){
+		
 	if($ken.hasClass('grad')){
 			casuals();
 	}
@@ -537,3 +530,9 @@ var casuals = function(){
 $contactBtn.click(hadoken);
 $gradBtn.click(graduate);
 $officeBtn.click(formals);
+
+window.onload = function()
+{
+	hideall();
+	setupStart();
+}
