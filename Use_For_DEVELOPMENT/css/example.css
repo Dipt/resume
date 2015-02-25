@@ -1,0 +1,694 @@
+@font-face
+{
+	font-family:blenda;
+	src: url('../fonts/BlendaScript.woff') format('woff');
+}
+
+html,
+body
+{
+	padding: 0;
+	margin: 0;
+	background-color: #36cce7;
+}
+
+/* hide horizontal scrollbars, since we use the vertical ones to scroll to the right */
+body
+{
+	overflow-x: hidden;
+}
+
+/* to handle if js is not enabled */
+.no-js #loader-wrapper 
+{
+    display: none;
+}
+
+.no-js h1 
+{
+    color: #3498db;
+}
+
+/* Css for loading begins here */
+
+#loader-wrapper 
+{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2000;
+}
+
+#loader {
+    display: block;
+    position: relative;
+    left: 50%;
+    top: 50%;
+    width: 150px;
+    height: 150px;
+	z-index: 2001;
+    margin: -75px 0 0 -75px;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    border-top-color: #3498db;
+    -webkit-animation: spin 2s linear infinite; /* Chrome, Opera 15+, Safari 5+ */
+    animation: spin 2s linear infinite; /* Chrome, Firefox 16+, IE 10+, Opera */
+}
+
+#progressbar{
+	 display: block;
+    position: relative;
+    left: 50%;
+    top: 50%;
+    width: 250px;
+	z-index: 2001;
+    margin: 90px 0 0 -120px;
+	-webkit-appearance: none;
+   appearance: none;
+  border: none;
+}
+
+progress::-webkit-progress-bar { background: #ecf0f1; }
+progress::-webkit-progress-value { background: #2c3e50; }
+
+#loader:before {
+    content: "";
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    right: 5px;
+    bottom: 5px;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    border-top-color: #e74c3c;
+    -webkit-animation: spin 3s linear infinite; /* Chrome, Opera 15+, Safari 5+ */
+	animation: spin 3s linear infinite; /* Chrome, Firefox 16+, IE 10+, Opera */
+}
+
+#loader:after {
+    content: "";
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    right: 15px;
+    bottom: 15px;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    border-top-color: #f9c922;
+    -webkit-animation: spin 1.5s linear infinite; /* Chrome, Opera 15+, Safari 5+ */
+	animation: spin 1.5s linear infinite; /* Chrome, Firefox 16+, IE 10+, Opera */
+}
+
+@-webkit-keyframes spin {
+    0%   {
+        -webkit-transform: rotate(0deg);  /* Chrome, Opera 15+, Safari 3.1+ */
+        -ms-transform: rotate(0deg);  /* IE 9 */
+        transform: rotate(0deg);  /* Firefox 16+, IE 10+, Opera */
+	}
+    100% {
+        -webkit-transform: rotate(360deg);  /* Chrome, Opera 15+, Safari 3.1+ */
+        -ms-transform: rotate(360deg);  /* IE 9 */
+        transform: rotate(360deg);  /* Firefox 16+, IE 10+, Opera */
+	}
+}
+
+@keyframes spin {
+    0%   {
+        -webkit-transform: rotate(0deg);  /* Chrome, Opera 15+, Safari 3.1+ */
+        -ms-transform: rotate(0deg);  /* IE 9 */
+        transform: rotate(0deg);  /* Firefox 16+, IE 10+, Opera */
+	}
+    100% {
+        -webkit-transform: rotate(360deg);  /* Chrome, Opera 15+, Safari 3.1+ */
+        -ms-transform: rotate(360deg);  /* IE 9 */
+        transform: rotate(360deg);  /* Firefox 16+, IE 10+, Opera */
+	}
+}
+
+#loader-wrapper .loader-section {
+    position: fixed;
+    top: 0;
+    width: 51%;
+    height: 100%;
+    background: #00bff3;
+    z-index: 2000;
+}
+
+#loader-wrapper .loader-section.section-left {
+    left: 0;
+}
+
+#loader-wrapper .loader-section.section-right {
+    right: 0;
+}
+
+.loaded #loader-wrapper .loader-section.section-right,
+.loaded #loader-wrapper .loader-section.section-left {
+	
+    -webkit-transition: all 0.7s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1.000);
+	transition: all 0.7s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1.000);
+}
+
+.loaded #loader {
+    opacity: 0;
+	-webkit-transition: all 0.3s ease-out;
+	transition: all 0.3s ease-out;
+}
+
+.loaded #loader-wrapper {
+    -webkit-transform: translateY(-100%);
+	-ms-transform: translateY(-100%);
+	transform: translateY(-100%);
+	
+	-webkit-transition: all 0.3s 1s ease-out;
+	transition: all 0.3s 1s ease-out;
+}
+
+/* Css for loading finishes here */
+
+/* The character which is to be controlled */
+#dipt
+{	
+	width:120px;
+	height:160px;
+	bottom:106px;
+	position:absolute;
+	margin-left:-200px;
+}
+/* Using different images depending on button clicked */
+.casual
+{
+	background:url(../images/dipt.svg);
+}
+.grad
+{
+	background:url(../images/dipt3.svg);
+}
+.formal
+{
+	background:url(../images/dipt2.svg);
+}
+
+/* has the character */
+.front
+{
+z-index: 1000;
+width: 6000px;
+}
+
+/* has the buttons */
+.btn
+{
+z-index: 1003;
+width: 6300px;
+}
+
+
+/* Css for horizontal background components */
+.scroll
+{
+	position: fixed;
+	bottom: 0;
+	left: 0;
+}
+/**
+* z-index ordering of the different layers, do this for your layers,
+* also assign absolute width (to prevent issues if the script gets executed before the images get loaded)
+*/
+
+/* has the clouds at the back */
+.horizon
+{
+	z-index: 1;
+	bottom: 102px;
+	width: 5400px;
+}
+
+/* has grass and ground */
+.base
+{
+	z-index: 501;
+	width: 6000px;
+	height: 112px;
+}
+
+.grass
+{
+	position: absolute;
+	width: 100%;
+	height: 50px;
+	background-image: url(../images/grass.png);
+}
+
+.ground
+{
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background-image: url(../images/ground.png);
+}
+
+/* name and heading at the start */
+.name
+{
+	z-index: 500;
+	width: 6000px;
+	bottom: 700px;
+}
+
+.intromsg
+{
+	z-index:600;
+	bottom:140px;
+	margin-left: 250px;
+	width:6000px;
+	font-family:blenda;
+	color:white;
+	font-size:30px;	
+}
+
+/* blinking scroll msg at the start */
+.blink {
+    -webkit-animation-name: blinker;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-iteration-count: infinite;
+
+    -moz-animation-name: blinker;
+    -moz-animation-duration: 1s;
+    -moz-animation-timing-function: linear;
+    -moz-animation-iteration-count: infinite;
+
+    -webkit-animation-name: blinker;
+
+            animation-name: blinker;
+    -webkit-animation-duration: 1s;
+            animation-duration: 1s;
+    -webkit-animation-timing-function: linear;
+            animation-timing-function: linear;
+    -webkit-animation-iteration-count: infinite;
+            animation-iteration-count: infinite;
+}
+
+@-webkit-keyframes blinker {  
+    0% { opacity: 1.0; }
+    50% { opacity: 0.0; }
+    100% { opacity: 1.0; }
+}
+
+@keyframes blinker {  
+    0% { opacity: 1.0; }
+    50% { opacity: 0.0; }
+    100% { opacity: 1.0; }
+}
+
+/* has the trees */
+.middle
+{
+z-index: 500;
+width: 6400px;
+bottom: 106px;
+}
+
+.trees
+{
+	bottom:112px;
+}
+
+/* college checkpoint */
+.checkpoint1
+{
+	z-index: 501;
+	width: 6400px;
+	margin-left:1100px;
+	bottom:70px;
+}
+
+.college
+{
+		position:absolute;
+}
+/* button to graduate */ 
+.key1
+{ 
+	position:absolute; 
+	bottom: 340px;
+	margin-left:1650px; 
+	cursor: pointer; 
+	vertical-align: top; 
+	width: 100px; 
+	height: 100px; 
+	border-radius: 50%; 
+	background : url(../images/gradbtn.svg);
+	-webkit-animation-name: yellowPulse;
+    -webkit-animation-duration: 2s;
+    -webkit-animation-iteration-count: infinite;
+}
+
+@-webkit-keyframes yellowPulse {
+  from { background-color: #fff145; -webkit-box-shadow: 0 5px 9px #333; }
+  50% { background-color: #f1c40f; -webkit-box-shadow: 0 5px 18px #f1c40f; }
+  to { background-color: #fff145; -webkit-box-shadow: 0 5px 9px #333; }
+  }
+
+/* office checkpoint */
+.checkpoint2
+{
+	z-index: 1002;
+	width: 6400px;
+	margin-left:2100px;
+	bottom:104px;
+}
+
+.office
+{
+	margin-left:152px;
+	
+}
+
+/* one image ahead of character and one behind */
+.checkpoint2b
+{
+	z-index: 999;
+	width: 6400px;
+	margin-left:2252px;
+	bottom:104px;
+}
+/* button for formals */
+.key2 
+{ 
+	position:absolute; 
+	bottom: 340px; 
+	margin-left:2600px; 
+	cursor: pointer;  
+	vertical-align: top; 
+	width: 100px; 
+	height: 100px; 
+	background : url(../images/officebtn.svg);
+	-webkit-animation-name: greenPulse;
+    -webkit-animation-duration: 2s;
+    -webkit-animation-iteration-count: infinite; 
+	border-radius: 50%; 
+}
+
+@-webkit-keyframes greenPulse {
+  from { background-color: #5ee595; -webkit-box-shadow: 0 5px 9px #333; }
+  50% { background-color: #2ecc71; -webkit-box-shadow: 0 5px 18px #2ecc71; }
+  to { background-color: #5ee595; -webkit-box-shadow: 0 5px 9px #333; }
+  }
+
+/* has chilling billboard */ 
+.checkpoint3
+{
+	z-index: 500;
+	width: 6400px;
+	margin-left:3000px;
+	bottom:108px;
+}
+
+#billboard
+{
+	height:0px;
+	width:800px;
+}
+
+/* skill signboard */
+.checkpoint4
+{
+	z-index: 501;
+	width: 6400px;
+	margin-left:3700px;
+	bottom:108px;
+}
+
+/* the skill ribbons holder */
+.checkpoint5
+{
+	z-index: 599;
+	width: 6400px;
+	margin-left:4000px;
+	bottom:108px;
+}
+
+/* ribbons showing skills */
+.checkpoint6
+{
+	z-index: 1000;
+	width: 6400px;
+	margin-left:4200px;
+	bottom:119px;
+}
+
+.checkpoint7
+{
+	z-index: 599;
+	width: 6400px;
+	margin-left:5150px;
+	bottom:108px;
+}
+
+.checkpoint8
+{
+	z-index: 1000;
+	width: 6400px;
+	margin-left:5180px;
+	bottom:108px;
+}
+
+.learn
+{
+	position:absolute;
+	width:78px;
+	height:35px;
+	bottom:268px;
+}
+
+.skill
+{
+	position:absolute;
+	width:78px;
+}
+
+.master
+{
+	height:35px;
+	bottom:466px;
+}
+
+.expert
+{
+	height:35px;
+	bottom:398px;
+}
+
+.proficient
+{
+	height:35px;
+	bottom:328px;
+}
+
+.familiar
+{
+	height:35px;
+	bottom:257px;
+}
+
+.beginner
+{
+	height:35px;
+	bottom:185px;
+}
+
+/* cannonball button */
+.key3 
+{ 
+	position:absolute; 
+	bottom: 340px; 
+	margin-left:5720px; 
+	cursor: pointer;  
+	vertical-align: top; 
+	width: 100px; 
+	height: 100px; 
+	background : url(../images/contactbtn.svg);
+	-webkit-animation-name: redPulse;
+    -webkit-animation-duration: 2s;
+    -webkit-animation-iteration-count: infinite; 
+	border-radius: 50%;  
+}
+
+@-webkit-keyframes redPulse {
+  from { background-color: #c0392b; -webkit-box-shadow: 0 5px 9px #333; }
+  50% { background-color: #e74c3c; -webkit-box-shadow: 0 5px 18px #e74c3c; }
+  to { background-color: #c0392b; -webkit-box-shadow: 0 5px 9px #333; }
+  }
+
+/* cannonball */
+.fireball 
+{ 
+	width: 70px; 
+	height: 80px; 
+	background-image: url(../images/cannonball.svg);
+	position: absolute; 
+	left: 100%; 
+	bottom: 24px; 
+	margin-left: 0; 
+	background-position: 0px 0px; 
+	-webkit-transition: margin 6s linear; 
+	transition: margin 6s linear; 
+	-webkit-animation: fireball steps(2) 0.15s infinite; 
+	animation: fireball steps(2) 0.15s infinite; 
+}
+
+.fireball:before 
+{ 
+	left: 25px; 
+	right: 25px; 
+}
+.fireball.moving 
+{
+	margin-left: 2000px; 
+}
+
+@-webkit-keyframes fireball { from { background-position: 0px 0px; }
+to { background-position: -140px 0px; } }
+
+@keyframes fireball { from { background-position: 0px 0px; }
+to { background-position: -140px 0px; } }
+
+/* cannonball impact explosion */
+.explode { -webkit-animation: explode steps(4) 0.5s 1; animation: explode steps(4) 0.5s 1; }
+
+@-webkit-keyframes explode { from { background-position: 0px -80px; }
+to { background-position: -280px -80px; } }
+
+@keyframes explode { from { background-position: 0px -80px; }
+to { background-position: -280px -80px; } }
+
+.cannon 
+{
+	position:absolute;
+	bottom:110px;
+	margin-left:5450px;
+	width : 190px;
+	height : 100px;
+	background : url(../images/cannon.svg);
+}
+
+/* target */
+.guile 
+{ 
+	position: absolute; 
+	bottom: 110px; 
+	margin-left: 5900px; 
+	width: 100px; 
+	height: 140px; 
+	background: url(../images/target.png);
+	-webkit-transition: -webkit-transform .3s linear;
+	        transition: transform .3s linear;
+    -webkit-transform-origin: bottom left;
+        -ms-transform-origin: bottom left;
+            transform-origin: bottom left;
+    -webkit-transform-style: preserve-3D;
+            transform-style: preserve-3D;
+}
+
+.falldown {
+  margin-left:5950px;
+  bottom:145px;
+  -webkit-transform: rotate(90deg);
+      -ms-transform: rotate(90deg);
+          transform: rotate(90deg);
+}
+
+.contact
+{
+z-index: 1003;
+width: 6000px;
+}
+
+.contactribbon
+{
+	position: absolute; bottom: 550px; margin-left: 5330px; width: 470px; height: 80px;
+	background:url('../images/contactribbon.png');
+}
+
+#contactfrm 
+{ 
+	position: absolute; 
+	bottom: 275px; 
+	margin-left: 5300px; 
+	width: 500px; 
+	height: 250px; 
+}
+
+.contactclose
+{
+	max-height: 0;
+}
+
+.contactopen
+{
+	max-height: 500px; /* approximate max height */
+	
+	-webkit-transition-property: all;
+	
+	transition-property: all;
+	-webkit-transition-duration: .5s;
+	transition-duration: .5s;
+	-webkit-transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+	transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+	
+	-webkit-transition-property: all;
+	-webkit-transition-duration: .5s;
+	-webkit-transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+}
+
+/*text boxes and buttons of contact form */
+.input {
+  display: block;
+  margin: 0;
+  width: 100%;
+  font-family: sans-serif;
+  font-size: 18px;
+  appearance: none;
+  box-shadow: none;
+  border-radius: none;
+  padding: 10px;
+  border: solid 1px #dcdcdc;
+  -webkit-transition: box-shadow 0.3s, border 0.3s;
+          transition: box-shadow 0.3s, border 0.3s;
+}
+.input:focus {
+  outline: none;
+  border: solid 1px #707070;
+  box-shadow: 0 0 5px 1px #969696;
+}
+.msg
+{
+		height:70px;
+}
+
+.sendBtn
+{
+		float:right;
+		position: relative;
+		vertical-align: top;
+		width: 30%;
+		height: 40px;
+		font-size: 18px;
+		color: white;
+		text-align: center;
+		text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+		background: #27ae60;
+		border-bottom: 2px solid #219d55;
+		cursor: pointer;
+		box-shadow: inset 0 -2px #219d55;
+}
+
+.sendBtn:active {
+  top: 1px;
+  outline: none;
+  box-shadow: none;
+}
