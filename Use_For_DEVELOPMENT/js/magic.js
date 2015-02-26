@@ -536,3 +536,28 @@ window.onload = function()
 	hideall();
 	setupStart();
 }
+
+function hasHtml5Validation () {
+ return typeof document.createElement('input').checkValidity === 'function';
+}
+
+if (hasHtml5Validation()) {
+ $('.validate-form').submit(function (e) {
+   if (!this.checkValidity()) {
+     // Prevent default stops form from firing
+     e.preventDefault();
+     $(this).addClass('invalid');
+   } else {
+     $(this).removeClass('invalid');
+   }
+ });
+}
+
+function checkValidity() {
+	if(this.value==""){
+		return false;
+	}
+	return true;
+}
+
+

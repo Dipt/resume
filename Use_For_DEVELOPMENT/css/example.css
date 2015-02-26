@@ -692,3 +692,13 @@ width: 6000px;
   outline: none;
   box-shadow: none;
 }
+
+/* .invalid class prevents CSS from automatically applying */
+.invalid input:required:invalid {
+  background: #BE4C54;
+}
+ 
+/* Mark valid inputs during .invalid state */
+.invalid input:required:valid {
+  background: #17D654 ;
+}
