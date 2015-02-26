@@ -448,9 +448,10 @@ var AnimateLearn = function(ribbon){
 var hadoken = function(){
 	
 	setTimeout(function () {
-		var $fireball = $('<div/>', {
+		/* var $fireball = $('<div/>', {
 				class : 'fireball'
-			});
+			}); */
+		var $fireball = $('<div class="fireball"></div>');
 		$fireball.appendTo($cannon);
 
 		var isFireballColision = function () {
