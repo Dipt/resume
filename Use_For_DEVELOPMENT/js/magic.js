@@ -2,9 +2,28 @@
 (function($){'use strict';$.jInvertScroll=function(sel,options){var defaults={width:'auto',height:'auto',onScroll:function(percent){}};var config=$.extend(defaults,options);if(typeof sel==='Object'&&sel.length>0){return}var elements=[],longest=0,totalHeight,winHeight,winWidth;function init(){$.each(sel,function(i,val){$(val).each(function(e){elements.push($(this));var w=$(this).width();if(longest<w){longest=w}})});if(config.width=='auto'){config.width=longest}if(config.height=='auto'){config.height=longest}$('body').css('height',config.height+'px')}function calc(){totalHeight=$(document).height();winHeight=$(window).height();winWidth=$(window).width()}function onscroll(e){var currY=$(this).scrollTop();calc();var diff=totalHeight-winHeight;var scrollPercent=0;if(diff!=0){scrollPercent=(currY/diff).toFixed(4)}if(typeof config.onScroll==='function'){config.onScroll.call(this,scrollPercent)}$.each(elements,function(i,el){var deltaW=el.width()-winWidth;if(deltaW<=0){deltaW=el.width()}var pos=Math.floor(deltaW*scrollPercent)*-1;el.css('left',pos)})}function setlisteners(){$(window).on('scroll resize',onscroll);$([document,window]).on('ready resize',calc)}init();setlisteners();return{reinitialize:function(){init();setlisteners()},destroy:function(){$('body').attr('style','');$(window).off('scroll resize',onscroll);$([document,window]).off('ready resize',calc)}}}}(jQuery));
 
 var $ken = $('#dipt');
-var $guile = $('.guile');
+var casualclothes = document.getElementById('casualsvg');
+var gradclothes = document.getElementById('gradsvg');
+var formalclothes = document.getElementById('formalsvg');
+var cstart = document.getElementById('cstart');
+var gstart = document.getElementById('gstart');
+var fstart = document.getElementById('fstart');
+cstart.beginElement();
+gstart.beginElement();
+fstart.beginElement();
+var currentclothes = cstart;
+
+var $initialize = $('#initialize');
+var $chkpoint1 = $('#chkpoint1');
+var $chkpoint2 = $('#chkpoint2');
+var $chkpoint3 = $('#chkpoint3');
+var $chkpoint4 = $('#chkpoint4');
+var $chkpoint5 = $('#chkpoint5');
+var $finale = $('#finale');
+
+var $flagpole = $('.flagpole');
 var $key = $('.key4');
-var $kenPos, $guilePos, $fireballPos;
+var $kenPos, $fireballPos;
 var $introbck = $('.name');
 var $intromsg = $('.intromsg');
 var $college = $('#college');
@@ -14,7 +33,7 @@ var $office = $('.office');
 var $officeribbon = $('#officeribbon');
 var $officeBtn = $('#officeBtn');
 var $billboard = $('#billboard');
-var $contactfrm = $('#contactfrm');
+var $blimp = $('#blimp');
 var $htmlribbon = $('#htmlribbon');
 var $cssribbon = $('#cssribbon');
 var $jsribbon = $('#jsribbon');
@@ -32,7 +51,19 @@ var $learn = $('.learn');
 var $skill = $('.skill');
 var $contactBtn = $('#contactBtn');
 var $cannon = $('.cannon');
-var $contactribbon = $('.contactribbon');
+var $wall = $('.wall');
+var $contactheading = $('.contactheading');
+var $nameinput = $('#nameinput');
+var $emailinput =$('#emailinput');
+var $msginput = $('.msg');
+var $txtmsg = $('.large');
+var $submit = $('.submit');
+var $socialinput = $('.socialinput');
+var $txtname = $('#txtname');
+var $txtemail = $('#txtemail');
+var $sendBtn = $('.sendBtn');
+var $socialset = $('.socialset');
+var $navpoint = $('.navpoint');
 
 var messagehidden = false;
 var reachedCollege = false;
@@ -40,6 +71,9 @@ var reachedOffice = false;
 var reachedbillboard = false;
 var reachedSkills = false;
 var reachedLearn = false;
+var reachedContact = false;
+var firedCannon = false;
+var IsForwardMoving = true;
 
 var htmlribbon = 'images/htmlribbon.png';
 var cssribbon = 'images/cssribbon.png';
@@ -59,14 +93,15 @@ prev = 0;
 
 progress = 0;
 
-var IsForwardMoving = true;
-var ani_data = [0, -120, -240, -360];
-var frame_index = 0;
-var scrollTimer = null;
-
-
+window.onload = function(){
+	hideall();
+	setupStart();
+	genClips();
+}
 
 var hideall = function(){
+	gradclothes.style.display='none';
+	formalclothes.style.display='none';
 	$introbck.hide();
 	$intromsg.hide();
 	$college.hide();
@@ -75,7 +110,6 @@ var hideall = function(){
 	$office.hide();
 	$officeribbon.hide();
 	$officeBtn.hide();
-	$contactfrm.hide();
 	$htmlribbon.hide();
 	$cssribbon.hide();
 	$jsribbon.hide();
@@ -89,12 +123,31 @@ var hideall = function(){
 	$reactribbon.hide();
 	$fluxribbon.hide();
 	$polymerribbon.hide();
-	$contactribbon.hide();
+	$contactBtn.hide();
+	$contactheading.hide();
+	$nameinput.hide();
+	$emailinput.hide();
+	$txtname.hide();
+	$txtemail.hide();
+	$txtmsg.hide();
+	$msginput.hide();
+	$submit.hide();
+	$socialinput.hide();
+	$sendBtn.hide();
+	$socialset.hide();
 }
 
 //to reset character and page back to starting point
 $(window).on('beforeunload', function () {
 	$(window).scrollTop(0);
+});
+
+$(document).ready(function() {
+  $(document).on("keydown", function(e) {
+       if (e.keyCode == 32) { 
+			window.scrollBy(0,40);           
+       }
+  });
 });
 
 //using the Jinvertscroller, updating the value of progress to get which scene we are at
@@ -118,55 +171,40 @@ $(window).on('beforeunload', function () {
 }
 	(jQuery));
 
-	
-/* $(document).ready(function(){
-    $(document).scroll(scroll);
-}); */
-	
-	
-$(window).scroll(scroll);
+window.onscroll = scroll;
 
-var element = document.querySelector('#dipt');
-var sprite = new Motio(element, {
-    fps: 8,
-    frames: 4
-});
-
-//handler fnc for scroll event
 function scroll() {
 	
-	sprite.play(); 
-	setTimeout(stopWalk,500);
+	currentclothes.beginElement();
 	
-	//moving character here
 	$ken.css({
 		marginLeft : progress * 5400 + 'px'
 	});
+	
 	update(progress, function (error) {
 		if (error) {
 			console.log('error');
 		} else {
-			//console.log('updt success');
 		}
 	});
-}
-
-var stopWalk = function(){
-	sprite.pause();
+	
+	UpdateNav(progress);	
 }
 
 var update = function(percent, callback) {
 
 	if (prev > percent) {
 		IsForwardMoving = false;
+		$ken.addClass('reverse');
 	}
 	else{
 		IsForwardMoving = true;
+		$ken.removeClass('reverse');
 	}
 	if (percent <= 0.03 && prev > 0.03) {
 		displaymsg();
 	}
-	if (percent < .99 && percent > 0.03){
+	if (percent > 0.03){
 		updateforwards(percent, function (error) {
 			if (error) {
 				console.log("position :" + percent);
@@ -174,19 +212,26 @@ var update = function(percent, callback) {
 				console.log(error);
 				callback(error);
 			} else {
-				//console.log("position :"+percent);
 				prev = percent;
-				//console.log('update fwd had no errors');
 				callback(null);
 			}
 		});
 	}
+	
 }
 
 var setupStart = function(){
+	resettxtvalues();
+	$initialize.addClass('current');
 	setTimeout(dropInIntroTxt,1800);
 	setTimeout(showCharacter,2300);	
 	setTimeout(displaymsg,3500);
+}
+
+var resettxtvalues = function(){
+	$txtname.val('');
+	$txtemail.val('');
+	$txtmsg.val('');
 }
 
 var dropInIntroTxt = function(){
@@ -259,7 +304,14 @@ var updateforwards = function(percent, callback) {
 		}
 	}
 	
-	//console.log(percent);
+	if(percent > .98){
+		if(reachedContact==false){
+			showContactBtn();
+			reachedContact=true;
+		}
+	}
+	
+	console.log(percent);
 	callback(null);
 }
 
@@ -274,7 +326,7 @@ var setupFinale = function(callback) {
 
 var checkPoint1Animate = function(){
 	popupCollege();
-	setTimeout(dropCollegeRibbon,500);
+	setTimeout(dropCollegeRibbon,300);
 }
 
 var checkPoint2Animate = function(){
@@ -284,6 +336,7 @@ var checkPoint2Animate = function(){
 
 var checkPoint3Animate = function(){
 	liftbillBoard();
+	moveBlimp();
 }
 
 var checkPoint6Animate = function(){
@@ -300,21 +353,21 @@ var popupCollege = function(){
 	$college.css({marginBottom:'-400px'});
 	$college.show().animate({
 		marginBottom:'16px'
-	},400);
+	},300);
 }
 
 var popupOffice = function(){
 	$office.css({marginBottom:'-400px'});
 	$office.show().animate({
 		marginBottom:'0px'
-	},400);
+	},200);
 }
 
 var dropCollegeRibbon = function(){
 	$collegeribbon.css({marginBottom:'400px'});
 	$collegeribbon.show().animate({
 		marginBottom:'0px'
-	},500);
+	},300);
 	
 }
 
@@ -322,21 +375,29 @@ var dropOfficeRibbon = function(){
 	$officeribbon.css({marginBottom:'400px'});
 	$officeribbon.show().animate({
 		marginBottom:'0px'
-	},500)
+	},300)
 }
 
 var showgradBtn = function(){
-	$gradBtn.show();
+	//$gradBtn.show();
+	$gradBtn.fadeIn(500);
 }
 
 var showofficeBtn = function(){
-	$officeBtn.show();
+	//$officeBtn.show();
+	$officeBtn.fadeIn(500);
 }
 
 var liftbillBoard = function(){
 	$billboard.animate({
 		height:'341px'
-	},400);
+	},300);
+}
+
+var moveBlimp = function(){
+	$blimp.animate({
+		marginLeft:'0px'
+	},5000);
 }
 
 var setBackgroundImg = function(){
@@ -445,30 +506,36 @@ var AnimateLearn = function(ribbon){
 	},1500)
 }
 
+var showContactBtn = function(){
+	$contactBtn.fadeIn(500);
+}
+
 var hadoken = function(){
 	
 	setTimeout(function () {
-		/* var $fireball = $('<div/>', {
+		var $fireball = $('<div/>', {
 				class : 'fireball'
-			}); */
-		var $fireball = $('<div class="fireball"></div>');
+			});
 		$fireball.appendTo($cannon);
 
 		var isFireballColision = function () {
-			return ($guile.offset().left - $fireballPos.left <= 75 && $guile.offset().left - $fireballPos.left >= -75);
+			return ($wall.offset().left - $fireballPos.left <= 45 && $wall.offset().left - $fireballPos.left >= -45);
 		};
 
-		var explodeIfColision = setInterval(function () {
-				$fireballPos = $fireball.offset();
-				if (isFireballColision()) {
-					$fireball.addClass('explode').removeClass('moving').css('marginLeft', '+=22px');
-					clearInterval(explodeIfColision);
-					setTimeout(function () {
-						$fireball.remove();
-					}, 500);
-					AnimateFinale();
-				}
-		}, 50);
+		if(firedCannon==false){			
+			var explodeIfColision = setInterval(function () {
+					$fireballPos = $fireball.offset();
+					if (isFireballColision()) {
+						firedCannon=true;
+						$fireball.addClass('explode').removeClass('moving').css('marginLeft', '+=22px');
+						clearInterval(explodeIfColision);
+						setTimeout(function () {
+							$fireball.remove();
+						}, 500);
+						AnimateFinale();
+					}
+			}, 50);
+		}
 
 		setTimeout(function () {
 			$fireball.addClass('moving');
@@ -482,83 +549,350 @@ var hadoken = function(){
 	}, (250));
 };
 
-var AnimateFinale = function(){
-	$guile.addClass('falldown');
-	$contactBtn.css("display", "none");
-	setTimeout(dropContactribbon,200);
-	setTimeout(popContactFrm,500);	
+var AnimateFinale = function(){	
+	explodewall();
+	setTimeout(popContactRibbons,1200);
 }
 
-var popContactFrm = function(){
-	$('#contactfrm').show(function () {
-		$('#contactfrm').addClass('contactopen');
-	});
+var popContactRibbons = function(){
+	hoistheadingribbon();
+	setTimeout(opennameribbon,800);
+	setTimeout(openemailribbon,1200);
+	setTimeout(openmsgribbon,1600);
+	setTimeout(opensendribbon,2000);
+	setTimeout(opensocialribbon,2200);
 }
 
-var dropContactribbon = function(){
-	$contactribbon.css({marginBottom:'400px'});
-	$contactribbon.show().animate({
-		marginBottom:'0px'
-	},600);
+var hoistheadingribbon = function(callback){
+	$contactheading.show().animate({
+		bottom:"0px"
+	},500);	
+	setTimeout(showribbons,500);
+	setTimeout(openheadingribbon,500);
+}
+
+var openheadingribbon = function(){
+	$contactheading.removeClass('closed');
+	$contactheading.addClass('open');
+}
+
+var showribbons = function(){
+	$nameinput.show();	
+	$emailinput.show();
+	$msginput.removeClass('msg');
+	$msginput.show();
+	$submit.show();
+	$socialinput.show();
+}
+
+var opennameribbon = function(){
+	$nameinput.removeClass('txtinputclose');
+	$nameinput.addClass('txtinputopen');
+	setTimeout(function(){
+		$txtname.show();
+	},400);
+}
+
+var openemailribbon = function(){
+	$emailinput.removeClass('txtemailclose');
+	$emailinput.addClass('txtinputopen');
+	setTimeout(function(){
+		$txtemail.show();
+	},400);
+}
+
+var openmsgribbon = function(){
+	$msginput.removeClass('txtmsgclose');
+	$msginput.addClass('msg');
+	$msginput.addClass('txtinputopen');
+	setTimeout(function(){
+		$txtmsg.show();
+	},400);
+}
+
+var opensendribbon = function(){
+	$submit.removeClass('buttonclose');
+	setTimeout(function(){
+		$sendBtn.show();
+	},400);
+}
+
+var opensocialribbon = function(){
+	$socialinput.animate({
+		width:"240px"
+	},300);
+	setTimeout(function(){
+		$socialset.show();
+	},1000); 
+	
 }
 
 var graduate = function(){
-		
-	if($ken.hasClass('grad')){
+	
+	if(currentclothes==gstart){
 			casuals();
 	}
 	else{
-			$ken.removeClass();
-			$ken.addClass('grad');	
+			currentclothes=gstart;
+			casualclothes.style.display='none';
+			gradclothes.style.display='block';
+			formalclothes.style.display='none';
 	}	
 }
 
 var formals = function(){
-	if($ken.hasClass('formal')){
+	if(currentclothes==fstart){
 			casuals();
 	}
 	else{
-			$ken.removeClass();
-			$ken.addClass('formal');
+			currentclothes=fstart;
+			casualclothes.style.display='none';
+			gradclothes.style.display='none';
+			formalclothes.style.display='block';
 	}
 }
 
 var casuals = function(){
-	$ken.removeClass();
-	$ken.addClass('casual');
+	currentclothes=cstart;
+	casualclothes.style.display='block';
+	formalclothes.style.display='none';
+	gradclothes.style.display='none';
+}
+
+var UpdateNav = function(percent){
+	if( percent < 0.17 ){
+		resetCurrent(function(){
+			$initialize.addClass('current');
+		});		
+	}
+	if( percent > 0.17 && percent < .35){
+		resetCurrent(function(){
+			$chkpoint1.addClass('current');
+		});		
+	}
+	if( percent > 0.35 && percent < .46){
+		resetCurrent(function(){
+			$chkpoint2.addClass('current');
+		});		
+	}
+	if( percent > 0.46 && percent < 0.7 ){
+		resetCurrent(function(){
+			$chkpoint3.addClass('current');
+		});		
+	}
+	if( percent > 0.7 && percent < 0.85 ){
+		resetCurrent(function(){
+			$chkpoint4.addClass('current');
+		});		
+	}
+	if( percent > 0.85 && percent < 0.98 ){
+		resetCurrent(function(){
+			$chkpoint5.addClass('current');
+		});		
+	}
+	if(percent > 0.98){
+		resetCurrent(function(){
+			$finale.addClass('current');
+		});
+	}
+}
+
+var resetCurrent = function(callback){
+	$navpoint.each(function(i, navitem) {
+		$(this).removeClass('current');
+	});
+	callback();
+}
+
+var scrolltostart = function(){
+	$('html,body').animate({ scrollTop: 0 }, { duration: 1500, easing: 'swing'});
+}
+
+var scrolltocollege = function(){
+	$('html,body').animate({ scrollTop: 3000 }, { duration: 1500, easing: 'swing'});
+}
+
+var scrolltooffice = function(){
+	$('html,body').animate({ scrollTop: 5800 }, { duration: 1500, easing: 'swing'});
+}
+
+var scrolltobillboard = function(){
+	$('html,body').animate({ scrollTop: 8000 }, { duration: 1500, easing: 'swing'});
+}
+
+var scrolltoskills = function(){
+	$('html,body').animate({ scrollTop: 11000 }, { duration: 1500, easing: 'swing'});
+}
+
+var scrolltolearn = function(){
+	$('html,body').animate({ scrollTop: 13000 }, { duration: 1500, easing: 'swing'});
+}
+
+var scrolltofinale = function(){
+	$('html,body').animate({ scrollTop: 14300 }, { duration: 1500, easing: 'swing'});
 }
 
 $contactBtn.click(hadoken);
 $gradBtn.click(graduate);
 $officeBtn.click(formals);
+$initialize.click(scrolltostart);
+$chkpoint1.click(scrolltocollege);
+$chkpoint2.click(scrolltooffice);
+$chkpoint3.click(scrolltobillboard);
+$chkpoint4.click(scrolltoskills);
+$chkpoint5.click(scrolltolearn);
+$finale.click(scrolltofinale);
 
-window.onload = function()
-{
-	hideall();
-	setupStart();
+var hidewall = function(){
+	$('.clipped-box').hide();
 }
 
-function hasHtml5Validation () {
- return typeof document.createElement('input').checkValidity === 'function';
-}
-
-if (hasHtml5Validation()) {
- $('.validate-form').submit(function (e) {
-   if (!this.checkValidity()) {
-     // Prevent default stops form from firing
-     e.preventDefault();
-     $(this).addClass('invalid');
-   } else {
-     $(this).removeClass('invalid');
-   }
- });
-}
-
-function checkValidity() {
-	if(this.value==""){
-		return false;
+var genClips = function() {
+		
+		// For easy use
+		$t = $('.clipped-box');
+		
+		// Like I said, we're using 5!
+		var amount = 5;
+		
+		// Get the width of each clipped rectangle.
+		var width = $t.width() / amount;
+		var height = $t.height() / amount;
+		
+		// The total is the square of the amount
+		var totalSquares = Math.pow(amount, 2);
+		
+		// The HTML of the content
+		var html = $t.find('.content').html();
+		
+		var y = 0;
+		
+		for(var z = 0; z <= (amount*width); z = z+width) { 
+		
+			$('<div class="clipped" style="clip: rect('+y+'px, '+(z+width)+'px, '+(y+height)+'px, '+z+'px)">'+html+'</div>').appendTo($t);
+			
+			if(z === (amount*width)-width) {
+			
+				y = y + height;
+				z = -width;
+			
+			}
+			
+			if(y === (amount*height)) {
+				z = 9999999;
+			}
+			
+		}
+		
 	}
-	return true;
-}
+	
+	// A quick random function for selecting random numbers
+	function rand(min, max) {
+		
+		return Math.floor(Math.random() * (max - min + 1)) + min;
+		
+	}
+	
+	// A variable check for when the animation is mostly over
+	var first = false,
+		clicked = false;
+	
+	// On click
+	var explodewall = function() {
+		
+		if(clicked === false) {
+			
+			clicked = true;
+			setTimeout(hidewall,4000);
+			$('.clipped-box .content').css({'display' : 'none'});	
+	
+			// Apply to each clipped-box div.
+			$('.clipped-box div:not(.content)').each(function() {
+				
+				// So the speed is a random speed between 90m/s and 120m/s. I know that seems like a lot
+				// But otherwise it seems too slow. That's due to how I handled the timeout.
+				var v = rand(120, 90),
+					angle = rand(80, 89), // The angle (the angle of projection) is a random number between 80 and 89 degrees.
+					theta = (angle * Math.PI) / 180, // Theta is the angle in radians
+					g = -9.8; // And gravity is -9.8. If you live on another planet feel free to change
+					
+				// $(this) as self
+				var self = $(this);
+				
+				// time is initially zero, also set some random variables. It's higher than the total time for the projectile motion
+				// because we want the squares to go off screen. 
+				var t = 0,
+					z, r, nx, ny,
+					totalt =  15;
+				
+				// The direction can either be left (1), right (-1) or center (0). This is the horizontal direction.
+				var negate = [1, -1, 0],
+					direction = negate[ Math.floor(Math.random() * negate.length) ];
+				
+				// Some random numbers for altering the shapes position
+				var randDeg = rand(-5, 10), 
+					randScale = rand(0.9, 1.1),
+					randDeg2 = rand(30, 5);
+				
+				// Because box shadows are a bit laggy (by a bit I mean 'box shadows will not work on individual clipped divs at all') 
+				// we're altering the background colour slightly manually, in order to give the divs differentiation when they are
+				// hovering around in the air.
+				var color = $(this).css('backgroundColor').split('rgb(')[1].split(')')[0].split(', '),
+					colorR = rand(-20, 20),  // You might want to alter these manually if you change the color
+					colorGB = rand(-20, 20),  // To get the right consistency.
+					newColor = 'rgb('+(parseFloat(color[0])+colorR)+', '+(parseFloat(color[1])+colorGB)+', '+(parseFloat(color[2])+colorGB)+')';
+				
+				
+				// And apply those
+				$(this).css({
+					'transform' : 'scale('+randScale+') skew('+randDeg+'deg) rotateZ('+randDeg2+'deg)', 
+					'background' : newColor
+				});
+				 
+				// Set an interval
+				z = setInterval(function() { 	
+					
+					// Horizontal speed is constant (no wind resistance on the internet)
+					var ux = ( Math.cos(theta) * v ) * direction;
+					
+					// Vertical speed decreases as time increases before reaching 0 at its peak
+					var uy = ( Math.sin(theta) * v ) - ( (-g) * t);
+					
+					// The horizontal position
+					nx = (ux * t);
+							
+					// s = ut + 0.5at^2
+					ny = (uy * t) + (0.5 * (g) * Math.pow(t, 2));
+					
+					// Apply the positions	
+					$(self).css({'bottom' : (ny)+'px', 'left' : (nx)+'px'});
+					
+					// Increase the time by 0.10
+					t = t + 0.10;
+					
+					// If the time is greater than the total time clear the interval
+					if(t > totalt) {
+						
+						clicked = false;
+						first = true;
+						
+						
+						$('.clipped-box').css({'top' : '-1000px', 'transition' : 'none'});
+						$(self).css({'left' : '0', 'bottom' : '0', 'opacity' : '1', 'transition' : 'none', 'transform' : 'none'});
+					
+								
+						// Finally clear the interval
+						clearInterval(z);
+					
+					}
+					
+				}, 10); // Run this interval every 10ms. Changing this will change the pace of the animation
+		
+			});
+			
+		}
+	
+	}
+	
 
 
