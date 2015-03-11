@@ -172,11 +172,22 @@ progress::-webkit-progress-value { background: #2c3e50; }
 #dipt
 {	
 	width:120px;
-	height:160px;
-	bottom:106px;
+	height:180px;
+	bottom:108px;
 	position:absolute;
 	margin-left:-200px;
 }
+
+.reverse
+{
+        -webkit-transform: scaleX(-1);
+        -ms-transform: scaleX(-1);
+            transform: scaleX(-1);
+        -webkit-filter: FlipH;
+                filter: FlipH;
+        -ms-filter: "FlipH";
+}
+
 /* Using different images depending on button clicked */
 .casual
 {
@@ -189,6 +200,29 @@ progress::-webkit-progress-value { background: #2c3e50; }
 .formal
 {
 	background:url(../images/dipt2.svg);
+}
+
+.navigator
+{
+	z-index:1999;
+	width:670px;
+	margin-left:700px;
+	bottom:70px;
+	font-family:blenda;
+	font-size:100px;
+	color:white;	
+}
+
+.navpoint
+{
+	margin:25px;
+	cursor:pointer;
+	height:50px;
+}
+
+.current
+{
+	color: #004460;
 }
 
 /* has the character */
@@ -326,10 +360,19 @@ bottom: 106px;
 	bottom:70px;
 }
 
-.college
+#collegeribbon
 {
-		position:absolute;
+	margin-left:50px;
 }
+
+#college
+{
+		-webkit-transition: all 0.5s ease;
+	transition: all 0.5s ease;
+}
+
+
+
 /* button to graduate */ 
 .key1
 { 
@@ -364,8 +407,7 @@ bottom: 106px;
 
 .office
 {
-	margin-left:152px;
-	
+	margin-left:152px;	
 }
 
 /* one image ahead of character and one behind */
@@ -405,13 +447,29 @@ bottom: 106px;
 	z-index: 500;
 	width: 6400px;
 	margin-left:3000px;
-	bottom:108px;
+	bottom:71px;
 }
+
+.checkpoint3b
+{
+	z-index: 500;
+	width: 6900px;
+	margin-left:3200px;
+	bottom:508px;
+}
+
+#blimp
+{
+	margin-left:400px;
+}
+
 
 #billboard
 {
 	height:0px;
 	width:800px;
+	-webkit-transition: all 0.5s ease;
+	transition: all 0.5s ease;
 }
 
 /* skill signboard */
@@ -506,7 +564,7 @@ bottom: 106px;
 { 
 	position:absolute; 
 	bottom: 340px; 
-	margin-left:5720px; 
+	margin-left:5580px; 
 	cursor: pointer;  
 	vertical-align: top; 
 	width: 100px; 
@@ -532,7 +590,7 @@ bottom: 106px;
 	background-image: url(../images/cannonball.svg);
 	position: absolute; 
 	left: 100%; 
-	bottom: 24px; 
+	bottom: 50px; 
 	margin-left: 0; 
 	background-position: 0px 0px; 
 	-webkit-transition: margin 6s linear; 
@@ -569,37 +627,33 @@ to { background-position: -280px -80px; } }
 .cannon 
 {
 	position:absolute;
-	bottom:110px;
-	margin-left:5450px;
-	width : 190px;
-	height : 100px;
+	bottom:112px;
+	margin-left:5200px;
+	width : 247px;
+	height : 130px;
 	background : url(../images/cannon.svg);
 }
 
 /* target */
-.guile 
-{ 
+.wall
+{
 	position: absolute; 
-	bottom: 110px; 
-	margin-left: 5900px; 
-	width: 100px; 
-	height: 140px; 
-	background: url(../images/target.png);
-	-webkit-transition: -webkit-transform .3s linear;
-	        transition: transform .3s linear;
-    -webkit-transform-origin: bottom left;
-        -ms-transform-origin: bottom left;
-            transform-origin: bottom left;
-    -webkit-transform-style: preserve-3D;
-            transform-style: preserve-3D;
+	bottom: 290px; 
+	margin-left: 5720px; 
 }
 
-.falldown {
-  margin-left:5950px;
-  bottom:145px;
-  -webkit-transform: rotate(90deg);
-      -ms-transform: rotate(90deg);
-          transform: rotate(90deg);
+.flagpole
+{
+	position: absolute; 
+	bottom: 100px; 
+	margin-left: 5911px; 
+}
+
+.lock
+{
+	position: absolute; 
+	bottom: 160px; 
+	margin-left: 5911px; 
 }
 
 .contact
@@ -608,42 +662,15 @@ z-index: 1003;
 width: 6000px;
 }
 
-.contactribbon
-{
-	position: absolute; bottom: 550px; margin-left: 5330px; width: 470px; height: 80px;
-	background:url('../images/contactribbon.png');
-}
-
 #contactfrm 
 { 
 	position: absolute; 
-	bottom: 275px; 
-	margin-left: 5300px; 
+	bottom: 110px; 
+	margin-left: 5450px; 
 	width: 500px; 
-	height: 250px; 
+	height: 500px; 
 }
 
-.contactclose
-{
-	max-height: 0;
-}
-
-.contactopen
-{
-	max-height: 500px; /* approximate max height */
-	
-	-webkit-transition-property: all;
-	
-	transition-property: all;
-	-webkit-transition-duration: .5s;
-	transition-duration: .5s;
-	-webkit-transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
-	transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
-	
-	-webkit-transition-property: all;
-	-webkit-transition-duration: .5s;
-	-webkit-transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
-}
 
 /*text boxes and buttons of contact form */
 .input {
@@ -651,23 +678,227 @@ width: 6000px;
   margin: 0;
   width: 100%;
   font-family: sans-serif;
-  font-size: 18px;
+  font-size: 14px;
   appearance: none;
   box-shadow: none;
   border-radius: none;
   padding: 10px;
-  border: solid 1px #dcdcdc;
   -webkit-transition: box-shadow 0.3s, border 0.3s;
           transition: box-shadow 0.3s, border 0.3s;
+}
+
+.small
+{
+		height:25px;
+}
+
+.large
+{
+		height:50px;
+		margin-top:3px;
+		border-style:none;
+		color:#fff;
+		font-size:20px;
+		font-family:blenda;
+		background-color:#015f93;
 }
 .input:focus {
   outline: none;
   border: solid 1px #707070;
   box-shadow: 0 0 5px 1px #969696;
 }
+
+.socialinput
+{
+		background-image:url('../images/socialribbon.png');
+		padding-bottom:15px;
+		padding-top:20px;
+		padding-left:50px;
+		margin-right:30px;
+		float:right;
+		-webkit-transition: all 0.5s ease;
+	transition: all 0.5s ease;
+}
+
+.socialset
+{
+	-webkit-transition: all 0.5s ease;
+	transition: all 0.5s ease;
+}
+
+.socialclose
+{
+	margin-right:-180px;
+	bottom:-70px;
+	width:0px;
+	height:50px;
+	position:relative;
+}
+
+
+.socialset
+{
+	margin:15px;
+}
+
+.submit
+{
+	background-image:url('../images/inputribbon.png');
+	padding-bottom:18px;
+	padding-top:15px;
+	padding-left:80px;
+	margin-right:30px;
+	float:right;
+	height:30px;
+	margin-bottom:5px;
+	width:100px;
+	-webkit-transition: all 0.5s ease;
+	transition: all 0.5s ease;	
+}
+
+.contactheading
+{
+	background-image:url('../images/contactribbon.png');
+	margin-right:30px;
+	float:right;
+	-webkit-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+.open
+{
+		padding-bottom:15px;
+		padding-top:20px;
+		padding-left:80px;
+		padding-right:40px;
+		height:40px;
+		width:350px;
+		margin-bottom:5px;
+}
+
+.closed
+{
+		padding:0px;
+		margin:0px;
+		height:80px;
+		width:50px;		
+		bottom:-430px;
+		position:relative;
+		margin-right:30px;
+		float:right;
+}		
+
+.txtinputopen
+{
+		padding-bottom:20px;
+		padding-top:10px;
+		padding-left:80px;
+		padding-right:40px;
+		margin-right:30px;
+		width:300px;
+		float:right;
+		height:30px;
+		margin-bottom:5px;
+		background-image:url('../images/inputribbon.png');
+}
+
+.txtinputclose
+{
+	padding:0px;
+	margin:0px;
+	height:60px;
+	width:50px;		
+	bottom:0px;
+	position:relative;
+	margin-right:30px;
+	float:right;
+	margin-left:350px;
+}
+
+.txtmsgclose
+{
+	background-image:url('../images/msgribbon.png');
+	padding:0px;
+	margin:0px;
+	height:100px;
+	width:60px;		
+	bottom:0px;
+	position:relative;
+	margin-right:30px;
+	float:right;
+	margin-left:350px;
+}
+
+.buttonclose
+{
+	padding-left:0px;
+	width:60px;
+	bottom:0px;
+	position:relative;	
+	margin-left:120px;
+}	
+
+
+
+.txtemailclose
+{
+	padding:0px;
+	margin:0px;
+	height:60px;
+	width:50px;		
+	bottom:0px;
+	position:relative;
+	margin-right:30px;
+	float:right;
+	margin-left:350px;
+}
+
+#nameinput
+{
+	background-image:url('../images/nameribbon.png');
+	-webkit-transition: all 0.5s ease;
+	transition: all 0.5s ease;		
+}
+
+#emailinput
+{
+	background-image:url('../images/emailribbon.png');
+	-webkit-transition: all 0.5s ease;
+	transition: all 0.5s ease;		
+}
+
 .msg
 {
+		background-image:url('../images/msgribbon.png');
 		height:70px;
+		width:350px;
+		-webkit-transition: all 0.5s ease;
+	transition: all 0.5s ease;
+}
+
+textarea {
+    resize: none;
+}
+
+#txtname
+{
+	border-style:none;
+	color:#fff;
+	font-size:25px;
+	font-family:blenda;
+	background-color:#e2413e;
+	height:90%;
+}
+
+
+#txtemail
+{
+	border-style:none;
+	color:#fff;
+	font-size:25px;
+	font-family:blenda;
+	background-color:#f7e041;
+	height:90%;
 }
 
 .sendBtn
@@ -675,20 +906,84 @@ width: 6000px;
 		float:right;
 		position: relative;
 		vertical-align: top;
-		width: 30%;
+		width: 100%;
 		height: 40px;
-		font-size: 18px;
+		font-size: 25px;
+		font-family: blenda;
 		color: white;
 		text-align: center;
-		text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
-		background: #27ae60;
-		border-bottom: 2px solid #219d55;
+		background: #153860;
 		cursor: pointer;
-		box-shadow: inset 0 -2px #219d55;
+		border:none;
 }
 
 .sendBtn:active {
   top: 1px;
   outline: none;
   box-shadow: none;
+}
+
+.github
+{
+	background-image:url('../images/github.svg');
+	background-size:cover;
+	padding-top:20px;
+	padding-bottom:23px;
+	padding-left:30px;
+	padding-right:30px;
+}
+
+.quora
+{
+	margin-left:15px;
+	background-image:url('../images/quora.svg');
+	background-size:cover;
+	padding-top:20px;
+	padding-bottom:23px;
+	padding-left:30px;
+	padding-right:30px;
+}
+
+.facebook
+{
+	margin-left:15px;
+	background-size:cover;
+	padding-top:20px;
+	padding-bottom:23px;
+	padding-left:30px;
+	padding-right:30px;
+	background-image:url('../images/fb.svg');
+}
+
+::-webkit-input-placeholder {
+   color: white;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+   color: white;  
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+   color: white;  
+}
+
+:-ms-input-placeholder {  
+   color: white;  
+}
+
+input:focus {outline: none; }
+
+.clipped-box, .clipped-box div {
+	width: 400px;
+	height: 400px;
+	position: relative;
+}
+
+.clipped-box div {
+	position: absolute;
+	top: auto;
+	left: 0;
+	background: #36cce7;
+	-webkit-transition: -webkit-transform 1.4s ease-in, background 0.3s ease-in;
+	transition: transform 1.4s ease-in, background 0.3s ease-in;
 }

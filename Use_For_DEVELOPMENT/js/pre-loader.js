@@ -206,41 +206,48 @@
 	// assign 50 non-cache-able images via an image generator
 			var imagesArray = 
 			[
-			"college.png"
-			,"officeback.png"
+			"officeback.png"
 			,"office.png"
 			,"name.png"
-			,"billboard.png"
 			,"trees.svg"
+			,"billboard.png"
 			,"cannonball.svg"
-			,"dipt3.svg"
+			,"fort.png"
 			,"skillback.png"
-			,"dipt2.svg"
-			,"dipt.svg"
-			,"skillsign.png"
 			,"clouds.svg"
+			,"skillsign.png"
+			,"college.svg"
 			,"graduation ribbon.png"
 			,"office ribbon.png"
-			,"target.png"
+			,"blimp.png"
 			,"psribbon.png"
 			,"bootribbon.png"
 			,"jsribbon.png"
 			,"learnback.png"
 			,"htmlribbon.png"
 			,"illustratorribbon.png"
+			,"contactribbon.png"
 			,"jqribbon.png"
 			,"csharpribbon.png"
 			,"polymerribbon.png"
-			,"contactribbon.png"
 			,"fluxribbon.png"
 			,"reactribbon.png"
 			,"cssribbon.png"
 			,"noderibbon.png"
 			,"sassribbon.png"
 			,"ground.png"
-			,"grass.png"
 			,"cannon.svg"
+			,"msgribbon.png"
+			,"socialribbon.png"
+			,"emailribbon.png"
+			,"inputribbon.png"
+			,"nameribbon.png"
+			,"grass.png"			
 			,"contactbtn.svg"
+			,"github.svg"
+			,"quora.svg"
+			,"fb.svg"
+			,"flagpole.svg"
 			,"gradbtn.svg"
 			,"officebtn.svg"
 			]
@@ -248,6 +255,7 @@
 			for (i=0;i<imagesArray.length;i++){
 				imagesArray[i] = "images/" + imagesArray[i];
 			}
+					
 			var load = document.getElementById("progressbar");
 			load.setAttribute('max', imagesArray.length);
 			load.setAttribute('value', 0);
@@ -272,7 +280,7 @@
 				onComplete: function(loaded, errors){
 					// fires when whole list is done. cache is primed.
 					console.log('done', loaded);
-					$('body').addClass('loaded');
+					document.getElementsByTagName('body')[0].className+='loaded';
 					if (errors){
 						console.log('the following failed', errors);
 					}
