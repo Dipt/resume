@@ -255,6 +255,7 @@
 			for (i=0;i<imagesArray.length;i++){
 				imagesArray[i] = "images/" + imagesArray[i];
 			}
+					
 			var load = document.getElementById("progressbar");
 			load.setAttribute('max', imagesArray.length);
 			load.setAttribute('value', 0);
