@@ -304,7 +304,7 @@ var updateforwards = function(percent, callback) {
 		}
 	}
 	
-	if(percent > .98){
+	if(percent > .94){
 		if(reachedContact==false){
 			showContactBtn();
 			reachedContact=true;
@@ -512,6 +512,8 @@ var showContactBtn = function(){
 
 var hadoken = function(){
 	
+	presscontactBtn();
+	
 	setTimeout(function () {
 		var $fireball = $('<div/>', {
 				class : 'fireball'
@@ -629,6 +631,8 @@ var opensocialribbon = function(){
 
 var graduate = function(){
 	
+	pressgradBtn();
+	
 	if(currentclothes==gstart){
 			casuals();
 	}
@@ -641,6 +645,9 @@ var graduate = function(){
 }
 
 var formals = function(){
+	
+	pressofficeBtn();
+	
 	if(currentclothes==fstart){
 			casuals();
 	}
@@ -742,6 +749,27 @@ $chkpoint3.click(scrolltobillboard);
 $chkpoint4.click(scrolltoskills);
 $chkpoint5.click(scrolltolearn);
 $finale.click(scrolltofinale);
+
+var presscontactBtn = function(){
+	$contactBtn.addClass('key3press');
+	setTimeout(function(){
+		$contactBtn.removeClass('key3press');
+	},100);
+}
+
+var pressgradBtn = function(){
+	$gradBtn.addClass('key1press');
+	setTimeout(function(){
+		$gradBtn.removeClass('key1press');
+	},100);
+}
+
+var pressofficeBtn = function(){
+	$officeBtn.addClass('key2press');
+	setTimeout(function(){
+		$officeBtn.removeClass('key2press');
+	},100);
+}
 
 var hidewall = function(){
 	$('.clipped-box').hide();

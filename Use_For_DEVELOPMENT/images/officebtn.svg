@@ -3,10 +3,18 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 width="100px" height="100px" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve">
-<g id="Layer_1_1_">
-	<circle fill="#2ECC71" cx="49.833" cy="49.667" r="48.167"/>
-	<circle fill="none" stroke="#000000" stroke-width="3.7051" stroke-miterlimit="10" cx="49.679" cy="49.512" r="43.381"/>
+<g id="Layer_2">
+	<path fill="#939393" d="M97.024,58.629C96.977,83.568,70.248,98.9,50.7,98.9c-21.307,0-46.923-13.934-46.923-38.873
+		c0,0-1.241-11.052,6.074-22.956s0,0,0,0h81.533C91.385,37.071,97.049,45.758,97.024,58.629z"/>
+	<g>
+		<path fill="#1D9E51" d="M91.599,57.792c0,22.315-23.49,35.563-40.982,35.563c-19.066,0-40.982-11.997-40.982-34.312l0.234-20.596
+			L91.3,38.324L91.599,57.792z"/>
+	</g>
 </g>
-<path d="M35.333,14.667c0,0,14.451-8.873,27.951,0.294L54,30.333l8,48.5L50,89.167L36.667,78.5l9-48.167L35.333,14.667z"/>
-<path fill="none" stroke="#2ECC71" stroke-width="2" stroke-miterlimit="10" d="M58.833,33c0,0-6.833-9.667-20.167,0"/>
+<g id="Layer_1_1_">
+	<circle fill="#2ECC71" cx="50.617" cy="41.647" r="40.792"/>
+</g>
+<path d="M38.337,12.006c0,0,12.238-7.514,23.671,0.249l-7.862,13.018l6.775,41.074l-10.163,8.752l-11.292-9.034l7.622-40.792
+	L38.337,12.006z"/>
+<path fill="none" stroke="#2ECC71" stroke-width="1.6938" stroke-miterlimit="10" d="M58.239,27.532c0,0-5.787-8.187-17.079,0"/>
 </svg>

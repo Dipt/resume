@@ -244,12 +244,15 @@
 			,"nameribbon.png"
 			,"grass.png"			
 			,"contactbtn.svg"
+			,"contactbtnpressed.svg"
 			,"github.svg"
 			,"quora.svg"
 			,"fb.svg"
 			,"flagpole.svg"
 			,"gradbtn.svg"
+			,"gradbtnpressed.svg"
 			,"officebtn.svg"
+			,"officebtnpressed.svg"
 			]
 
 			for (i=0;i<imagesArray.length;i++){

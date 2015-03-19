@@ -377,17 +377,18 @@ bottom: 106px;
 .key1
 { 
 	position:absolute; 
-	bottom: 340px;
-	margin-left:1650px; 
+	bottom: 380px;
+	margin-left:1480px; 
 	cursor: pointer; 
 	vertical-align: top; 
 	width: 100px; 
 	height: 100px; 
-	border-radius: 50%; 
 	background : url(../images/gradbtn.svg);
-	-webkit-animation-name: yellowPulse;
-    -webkit-animation-duration: 2s;
-    -webkit-animation-iteration-count: infinite;
+}
+
+.key1press
+{
+	background : url(../images/gradbtnpressed.svg);
 }
 
 @-webkit-keyframes yellowPulse {
@@ -422,17 +423,18 @@ bottom: 106px;
 .key2 
 { 
 	position:absolute; 
-	bottom: 340px; 
-	margin-left:2600px; 
+	bottom: 160px; 
+	margin-left:2400px; 
 	cursor: pointer;  
 	vertical-align: top; 
 	width: 100px; 
 	height: 100px; 
 	background : url(../images/officebtn.svg);
-	-webkit-animation-name: greenPulse;
-    -webkit-animation-duration: 2s;
-    -webkit-animation-iteration-count: infinite; 
-	border-radius: 50%; 
+}
+
+.key2press
+{
+	background : url(../images/officebtnpressed.svg);
 }
 
 @-webkit-keyframes greenPulse {
@@ -570,17 +572,14 @@ bottom: 106px;
 	width: 100px; 
 	height: 100px; 
 	background : url(../images/contactbtn.svg);
-	-webkit-animation-name: redPulse;
-    -webkit-animation-duration: 2s;
-    -webkit-animation-iteration-count: infinite; 
-	border-radius: 50%;  
+	-webkit-transition: all 0.1s ease;
+	transition: all 0.1s ease;	
 }
 
-@-webkit-keyframes redPulse {
-  from { background-color: #c0392b; -webkit-box-shadow: 0 5px 9px #333; }
-  50% { background-color: #e74c3c; -webkit-box-shadow: 0 5px 18px #e74c3c; }
-  to { background-color: #c0392b; -webkit-box-shadow: 0 5px 9px #333; }
-  }
+.key3press
+{
+	background : url(../images/contactbtnpressed.svg);
+}
 
 /* cannonball */
 .fireball 
