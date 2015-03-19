@@ -92,7 +92,7 @@ var polymerribbon = 'images/polymerribbon.png';
 prev = 0;
 
 progress = 0;
-
+//initial functions
 window.onload = function(){
 	hideall();
 	setupStart();
@@ -142,12 +142,13 @@ $(window).on('beforeunload', function () {
 	$(window).scrollTop(0);
 });
 
-$(document).ready(function() {
-  $(document).on("keydown", function(e) {
-       if (e.keyCode == 32) { 
-			window.scrollBy(0,40);           
-       }
-  });
+$(document).keydown(function(e) {
+    if(e.which == 39) {
+        window.scrollBy(0,50);           
+    }
+	if(e.which == 37) {
+        window.scrollBy(0,-50);           
+    }
 });
 
 //using the Jinvertscroller, updating the value of progress to get which scene we are at
@@ -170,13 +171,13 @@ $(document).ready(function() {
 	});
 }
 	(jQuery));
-
+//bind scroll event
 window.onscroll = scroll;
-
+//scroll handler. The variable progress indicates position of scroll
 function scroll() {
-	
+	//animates svg to walk
 	currentclothes.beginElement();
-	
+	//moving character
 	$ken.css({
 		marginLeft : progress * 5400 + 'px'
 	});
@@ -192,7 +193,7 @@ function scroll() {
 }
 
 var update = function(percent, callback) {
-
+	//get moving direction
 	if (prev > percent) {
 		IsForwardMoving = false;
 		$ken.addClass('reverse');
@@ -312,15 +313,6 @@ var updateforwards = function(percent, callback) {
 	}
 	
 	console.log(percent);
-	callback(null);
-}
-
-var updatebackwards = function(percent, callback) {
-	//depending on scene appropriate fnc will be called
-	callback(null);
-}
-
-var setupFinale = function(callback) {
 	callback(null);
 }
 
@@ -511,19 +503,20 @@ var showContactBtn = function(){
 }
 
 var hadoken = function(){
-	
+	//button press effect
 	presscontactBtn();
 	
 	setTimeout(function () {
+		//create cannonball
 		var $fireball = $('<div/>', {
 				class : 'fireball'
 			});
 		$fireball.appendTo($cannon);
-
+		//detect collision
 		var isFireballColision = function () {
 			return ($wall.offset().left - $fireballPos.left <= 45 && $wall.offset().left - $fireballPos.left >= -45);
 		};
-
+		//only executed on first instance
 		if(firedCannon==false){			
 			var explodeIfColision = setInterval(function () {
 					$fireballPos = $fireball.offset();
@@ -534,19 +527,22 @@ var hadoken = function(){
 						setTimeout(function () {
 							$fireball.remove();
 						}, 500);
+						//when first cannonball collides start animating finale
 						AnimateFinale();
 					}
 			}, 50);
 		}
 
+		//move cannonball
 		setTimeout(function () {
 			$fireball.addClass('moving');
 		}, 20);
 
+		//remove cannonball after 2 sec
 		setTimeout(function () {
 			$fireball.remove();
 			clearInterval(explodeIfColision);
-		}, 3020);
+		}, 2000);
 
 	}, (250));
 };
@@ -557,6 +553,7 @@ var AnimateFinale = function(){
 }
 
 var popContactRibbons = function(){
+	//pop each contact ribbon after some time intervals
 	hoistheadingribbon();
 	setTimeout(opennameribbon,800);
 	setTimeout(openemailribbon,1200);
@@ -631,9 +628,11 @@ var opensocialribbon = function(){
 
 var graduate = function(){
 	
+	//animate button press
 	pressgradBtn();
 	
 	if(currentclothes==gstart){
+		//reset clothes to casual
 			casuals();
 	}
 	else{
@@ -704,6 +703,7 @@ var UpdateNav = function(percent){
 	}
 }
 
+//fnc called to reset nav
 var resetCurrent = function(callback){
 	$navpoint.each(function(i, navitem) {
 		$(this).removeClass('current');
@@ -771,6 +771,8 @@ var pressofficeBtn = function(){
 	},100);
 }
 
+//js for exploding fort from a tutorial by johnny simpson
+
 var hidewall = function(){
 	$('.clipped-box').hide();
 }
@@ -780,7 +782,6 @@ var genClips = function() {
 		// For easy use
 		$t = $('.clipped-box');
 		
-		// Like I said, we're using 5!
 		var amount = 5;
 		
 		// Get the width of each clipped rectangle.
@@ -814,7 +815,6 @@ var genClips = function() {
 		
 	}
 	
-	// A quick random function for selecting random numbers
 	function rand(min, max) {
 		
 		return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -837,18 +837,13 @@ var genClips = function() {
 			// Apply to each clipped-box div.
 			$('.clipped-box div:not(.content)').each(function() {
 				
-				// So the speed is a random speed between 90m/s and 120m/s. I know that seems like a lot
-				// But otherwise it seems too slow. That's due to how I handled the timeout.
 				var v = rand(120, 90),
 					angle = rand(80, 89), // The angle (the angle of projection) is a random number between 80 and 89 degrees.
 					theta = (angle * Math.PI) / 180, // Theta is the angle in radians
 					g = -9.8; // And gravity is -9.8. If you live on another planet feel free to change
 					
-				// $(this) as self
 				var self = $(this);
 				
-				// time is initially zero, also set some random variables. It's higher than the total time for the projectile motion
-				// because we want the squares to go off screen. 
 				var t = 0,
 					z, r, nx, ny,
 					totalt =  15;
@@ -862,15 +857,11 @@ var genClips = function() {
 					randScale = rand(0.9, 1.1),
 					randDeg2 = rand(30, 5);
 				
-				// Because box shadows are a bit laggy (by a bit I mean 'box shadows will not work on individual clipped divs at all') 
-				// we're altering the background colour slightly manually, in order to give the divs differentiation when they are
-				// hovering around in the air.
 				var color = $(this).css('backgroundColor').split('rgb(')[1].split(')')[0].split(', '),
 					colorR = rand(-20, 20),  // You might want to alter these manually if you change the color
 					colorGB = rand(-20, 20),  // To get the right consistency.
 					newColor = 'rgb('+(parseFloat(color[0])+colorR)+', '+(parseFloat(color[1])+colorGB)+', '+(parseFloat(color[2])+colorGB)+')';
-				
-				
+								
 				// And apply those
 				$(this).css({
 					'transform' : 'scale('+randScale+') skew('+randDeg+'deg) rotateZ('+randDeg2+'deg)', 
